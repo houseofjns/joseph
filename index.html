@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of J&S - ICT Mid-Term Examination</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Professional Gold and White Theme */
+        :root {
+            --primary-gold: #D4AF37;
+            --hover-gold: #B8860B;
+            --light-gold: #F9F6ED;
+            --white: #FFFFFF;
+            --bg-color: #F4F7F6;
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --border-color: #E2E8F0;
+            --success: #38A169;
+            --success-bg: #F0FFF4;
+            --error: #E53E3E;
+            --error-bg: #FFF5F5;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            /* Anti-copy CSS */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Allow text selection in inputs */
+        input, textarea {
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 4px solid var(--primary-gold);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-container img {
+            max-height: 60px;
+            width: auto;
+            border-radius: 4px;
+        }
+
+        .header-title h1 {
+            color: var(--text-main);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-title p {
+            color: var(--primary-gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #user-greeting {
+            display: none;
+            font-weight: 600;
+            color: var(--hover-gold);
+            background: var(--light-gold);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--primary-gold);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Login Screen */
+        #login-container {
+            max-width: 450px;
+            margin: 80px auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            border-top: 5px solid var(--primary-gold);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        #login-container h2 {
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        #login-container p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background-color: #FAFAFA;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            background-color: var(--white);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, var(--primary-gold), var(--hover-gold));
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .error-msg {
+            color: var(--error);
+            background: var(--error-bg);
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 0.9rem;
+            border: 1px solid #FEB2B2;
+        }
+
+        /* Exam Content */
+        #exam-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .exam-info-card {
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-gold) 100%);
+            border: 1px solid var(--primary-gold);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .exam-info-card h2 {
+            color: var(--hover-gold);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .marks-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .mark-item {
+            background: var(--white);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-gold);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title span {
+            background-color: var(--primary-gold);
+            color: var(--white);
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .question-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .marks-badge {
+            background-color: var(--light-gold);
+            color: var(--hover-gold);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            height: fit-content;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .options label:hover {
+            background-color: var(--light-gold);
+            border-color: var(--primary-gold);
+        }
+
+        .options input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #CBD5E0;
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+            outline: none;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .options input[type="radio"]:checked {
+            border-color: var(--primary-gold);
+            background-color: var(--primary-gold);
+            box-shadow: inset 0 0 0 3px var(--white);
+        }
+
+        .options input[type="radio"]:checked + span {
+            color: var(--hover-gold);
+            font-weight: 600;
+        }
+
+        .textarea-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #FAFAFA;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .textarea-input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            background-color: var(--white);
+        }
+
+        .order-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .order-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #FAFAFA;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .order-label {
+            font-weight: 700;
+            color: var(--primary-gold);
+            min-width: 60px;
+        }
+
+        .order-select {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #CBD5E0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--white);
+            cursor: pointer;
+        }
+
+        .order-select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(to right, var(--primary-gold), var(--hover-gold));
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Result Section */
+        #result-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-gold) 100%);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--primary-gold);
+            margin-bottom: 30px;
+        }
+
+        .score-card h2 {
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+            line-height: 1;
+            margin: 20px 0;
+        }
+
+        .score-display span {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .result-breakdown {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .result-item {
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 6px solid #CBD5E0;
+            background-color: #FAFAFA;
+            font-size: 0.95rem;
+        }
+
+        .result-item.correct {
+            border-left-color: var(--success);
+            background-color: var(--success-bg);
+        }
+
+        .result-item.incorrect {
+            border-left-color: var(--error);
+            background-color: var(--error-bg);
+        }
+
+        .result-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .answer-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        .your-answer-text { color: var(--error); font-weight: 600; }
+        .correct-answer-text { color: var(--success); font-weight: 600; }
+
+        .retake-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: var(--text-main);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .retake-btn:hover {
+            background-color: #1A202C;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 6rem;
+            color: rgba(212, 175, 55, 0.05);
+            pointer-events: none;
+            z-index: -1;
+            white-space: nowrap;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; text-align: center; gap: 10px; }
+            .header-title h1 { font-size: 1.1rem; }
+            .order-step { flex-direction: column; align-items: flex-start; }
+            .order-label { margin-bottom: 5px; }
+            #user-greeting { margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="watermark">House of J&S</div>
+
+    <header>
+        <div class="logo-container">
+            <!-- Ensure logo1.png is in the same directory -->
+            <img src="logo1.png" alt="J&S Logo" onerror="this.style.display='none'">
+            <div class="header-title">
+                <h1>House of J&S</h1>
+                <p>Computer Training Center</p>
+            </div>
+        </div>
+        <div id="user-greeting">Welcome, <span id="display-name"></span></div>
+    </header>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-container">
+        <h2>Student Login</h2>
+        <p>Enter your details to access the Mid-Term Exam.</p>
+        
+        <div id="login-error" class="error-msg"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="studentName">Student Name</label>
+                <input type="text" id="studentName" class="form-control" placeholder="e.g. John Doe" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="studentPassword">Exam Password</label>
+                <input type="password" id="studentPassword" class="form-control" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="login-btn">Login to Exam</button>
+        </form>
+    </div>
+
+    <!-- MAIN EXAM CONTAINER (Hidden by default) -->
+    <div class="container" id="exam-container">
+        
+        <div class="exam-info-card">
+            <h2>ICT Mid-Term Examination</h2>
+            <p>Please read all questions carefully before answering. You have one attempt to submit.</p>
+            <div class="marks-breakdown">
+                <div class="mark-item">Part 1: MCQ (20 Mks)</div>
+                <div class="mark-item">Part 2: True/False (10 Mks)</div>
+                <div class="mark-item">Part 3: Fill in Blanks (20 Mks)</div>
+                <div class="mark-item">Part 4: Short Qs (20 Mks)</div>
+                <div class="mark-item">Part 5: Block Code (30 Mks)</div>
+            </div>
+        </div>
+
+        <form id="examForm">
+            <!-- PART 1: MCQ -->
+            <h2 class="section-title">Part 1: Multiple Choice <span>20 Marks</span></h2>
+            
+            <div class="question-card">
+                <div class="question-text">1. What does a word processing application allow you to do? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="A"> <span>A) Create and edit documents</span></label>
+                    <label><input type="radio" name="q1" value="B"> <span>B) Design 3D models</span></label>
+                    <label><input type="radio" name="q1" value="C"> <span>C) Hack websites</span></label>
+                    <label><input type="radio" name="q1" value="D"> <span>D) Build computer hardware</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">2. Which key do you press to start a new paragraph? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="A"> <span>A) Shift</span></label>
+                    <label><input type="radio" name="q2" value="B"> <span>B) Enter</span></label>
+                    <label><input type="radio" name="q2" value="C"> <span>C) Tab</span></label>
+                    <label><input type="radio" name="q2" value="D"> <span>D) Spacebar</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">3. What is the blinking line that shows where your text will appear called? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="A"> <span>A) Margin</span></label>
+                    <label><input type="radio" name="q3" value="B"> <span>B) Cursor</span></label>
+                    <label><input type="radio" name="q3" value="C"> <span>C) Font</span></label>
+                    <label><input type="radio" name="q3" value="D"> <span>D) Alignment</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">4. Which type of font has small lines at the ends of letters and is easy to read in large amounts of text? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="A"> <span>A) Sans-serif</span></label>
+                    <label><input type="radio" name="q4" value="B"> <span>B) Serif</span></label>
+                    <label><input type="radio" name="q4" value="C"> <span>C) Monospace</span></label>
+                    <label><input type="radio" name="q4" value="D"> <span>D) Cursive</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">5. What allows multiple people to work on a document and see each other's edits? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="A"> <span>A) Track Changes</span></label>
+                    <label><input type="radio" name="q5" value="B"> <span>B) Spell Check</span></label>
+                    <label><input type="radio" name="q5" value="C"> <span>C) Save As</span></label>
+                    <label><input type="radio" name="q5" value="D"> <span>D) Print</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">6. Where is the header usually located in a document? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="A"> <span>A) At the bottom of the page</span></label>
+                    <label><input type="radio" name="q6" value="B"> <span>B) In the middle of the text</span></label>
+                    <label><input type="radio" name="q6" value="C"> <span>C) At the top of the page</span></label>
+                    <label><input type="radio" name="q6" value="D"> <span>D) In the margin</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">7. What helps a reader find different parts or chapters in a long document? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="A"> <span>A) A picture</span></label>
+                    <label><input type="radio" name="q7" value="B"> <span>B) A table of contents</span></label>
+                    <label><input type="radio" name="q7" value="C"> <span>C) A page number</span></label>
+                    <label><input type="radio" name="q7" value="D"> <span>D) A footer</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">8. What feature allows you to find a specific word and change it to another word all at once? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="A"> <span>A) Spell Check</span></label>
+                    <label><input type="radio" name="q8" value="B"> <span>B) Find and Replace</span></label>
+                    <label><input type="radio" name="q8" value="C"> <span>C) Copy and Paste</span></label>
+                    <label><input type="radio" name="q8" value="D"> <span>D) Bold and Italic</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">9. What is a search engine used for? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="A"> <span>A) Editing photos</span></label>
+                    <label><input type="radio" name="q9" value="B"> <span>B) Finding information on the internet</span></label>
+                    <label><input type="radio" name="q9" value="C"> <span>C) Playing offline games</span></label>
+                    <label><input type="radio" name="q9" value="D"> <span>D) Typing documents</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">10. What is Google Chrome, Safari, or Microsoft Edge an example of? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="A"> <span>A) A web browser</span></label>
+                    <label><input type="radio" name="q10" value="B"> <span>B) A search engine</span></label>
+                    <label><input type="radio" name="q10" value="C"> <span>C) A word processor</span></label>
+                    <label><input type="radio" name="q10" value="D"> <span>D) A programming language</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">11. What is a bookmark used for? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="A"> <span>A) To save a website to visit later</span></label>
+                    <label><input type="radio" name="q11" value="B"> <span>B) To turn off the computer</span></label>
+                    <label><input type="radio" name="q11" value="C"> <span>C) To print a page</span></label>
+                    <label><input type="radio" name="q11" value="D"> <span>D) To delete a file</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">12. When searching the web, what should you use to find the best results? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="A"> <span>A) Very long sentences</span></label>
+                    <label><input type="radio" name="q12" value="B"> <span>B) Good search terms (keywords)</span></label>
+                    <label><input type="radio" name="q12" value="C"> <span>C) Random letters</span></label>
+                    <label><input type="radio" name="q12" value="D"> <span>D) Only one word</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">13. What should you check to know if a website is trustworthy? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="A"> <span>A) If it has bright colors</span></label>
+                    <label><input type="radio" name="q13" value="B"> <span>B) If it is a fact or opinion, and who wrote it</span></label>
+                    <label><input type="radio" name="q13" value="C"> <span>C) If it has pop-up ads</span></label>
+                    <label><input type="radio" name="q13" value="D"> <span>D) If it was the first link</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">14. What should you do to keep yourself safe online? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="A"> <span>A) Share your address with strangers</span></label>
+                    <label><input type="radio" name="q14" value="B"> <span>B) Use privacy settings and don't talk to strangers</span></label>
+                    <label><input type="radio" name="q14" value="C"> <span>C) Click on every pop-up</span></label>
+                    <label><input type="radio" name="q14" value="D"> <span>D) Share your passwords with friends</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">15. What is the internet? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="A"> <span>A) A single computer</span></label>
+                    <label><input type="radio" name="q15" value="B"> <span>B) A network of computers connected worldwide</span></label>
+                    <label><input type="radio" name="q15" value="C"> <span>C) A type of software</span></label>
+                    <label><input type="radio" name="q15" value="D"> <span>D) A video game</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">16. In programming, what is a "variable"? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="A"> <span>A) A place in memory that holds a value</span></label>
+                    <label><input type="radio" name="q16" value="B"> <span>B) A type of computer screen</span></label>
+                    <label><input type="radio" name="q16" value="C"> <span>C) A keyboard shortcut</span></label>
+                    <label><input type="radio" name="q16" value="D"> <span>D) A way to print documents</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">17. In Scratch, which block is used to get input from the user? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="A"> <span>A) "say"</span></label>
+                    <label><input type="radio" name="q17" value="B"> <span>B) "ask"</span></label>
+                    <label><input type="radio" name="q17" value="C"> <span>C) "set"</span></label>
+                    <label><input type="radio" name="q17" value="D"> <span>D) "move"</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">18. What is an "operator" in programming? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="A"> <span>A) A person who fixes computers</span></label>
+                    <label><input type="radio" name="q18" value="B"> <span>B) A math symbol like + or - that changes values</span></label>
+                    <label><input type="radio" name="q18" value="C"> <span>C) A type of font</span></label>
+                    <label><input type="radio" name="q18" value="D"> <span>D) A search engine</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">19. What is the process of checking if a fact on the internet is true called? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="A"> <span>A) Fact-checking</span></label>
+                    <label><input type="radio" name="q19" value="B"> <span>B) Bookmarking</span></label>
+                    <label><input type="radio" name="q19" value="C"> <span>C) Formatting</span></label>
+                    <label><input type="radio" name="q19" value="D"> <span>D) Coding</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">20. What should you do if someone online says something unkind to you? <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="A"> <span>A) Reply angrily</span></label>
+                    <label><input type="radio" name="q20" value="B"> <span>B) Tell a trusted adult</span></label>
+                    <label><input type="radio" name="q20" value="C"> <span>C) Ignore it and keep chatting</span></label>
+                    <label><input type="radio" name="q20" value="D"> <span>D) Delete your account immediately</span></label>
+                </div>
+            </div>
+
+            <!-- PART 2: True/False -->
+            <h2 class="section-title">Part 2: True or False <span>10 Marks</span></h2>
+            
+            <div class="question-card">
+                <div class="question-text">21. You should use long, complicated sentences as search terms. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q21" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">22. It is safe to share your home address and phone number online with strangers. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q22" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">23. Track Changes is a feature that shows what edits have been made to a document. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q23" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">24. A cursor shows where text will appear when you start typing. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q24" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">25. You cannot change the color or size of text in a word processor. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q25" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">26. Google is an example of a web browser. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q26" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q26" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">27. You should click on every pop-up you see on the internet. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q27" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q27" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">28. A variable in programming can hold a value until you need it later. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q28" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">29. In Scratch, you can use operators to add two numbers together. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q29" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q29" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">30. A table of contents is usually found at the very end of a document. <span class="marks-badge">1 Mark</span></div>
+                <div class="options">
+                    <label><input type="radio" name="q30" value="True"> <span>True</span></label>
+                    <label><input type="radio" name="q30" value="False"> <span>False</span></label>
+                </div>
+            </div>
+
+            <!-- PART 3: Fill in the Blanks -->
+            <h2 class="section-title">Part 3: Fill in the Blank <span>20 Marks</span></h2>
+            
+            <div class="question-card">
+                <div class="question-text">31. The blinking line that shows where text will appear is called a ______. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q31" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">32. ______ fonts have small lines at the ends of letters and are easy to read in large amounts of text. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q32" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">33. To make a list with dots, you should use a ______ list. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q33" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">34. A ______ is placed at the top of every page to show information like the document title. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q34" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">35. You can use a ______ engine to find information on the internet. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q35" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">36. To save a website so you can easily visit it again, you can create a ______. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q36" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">37. Always check your ______ settings on social media to control who sees your posts. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q37" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">38. In Scratch, a ______ is a place in memory that holds a value. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q38" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">39. The ______ block in Scratch is used to ask the user for input. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q39" placeholder="Type your answer here...">
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">40. When you add two numbers together, the answer is called the ______. <span class="marks-badge">2 Marks</span></div>
+                <input type="text" class="textarea-input" name="q40" placeholder="Type your answer here...">
+            </div>
+
+            <!-- PART 4: Short Questions -->
+            <h2 class="section-title">Part 4: Short Questions <span>20 Marks</span></h2>
+            
+            <div class="question-card">
+                <div class="question-text">41. What is the difference between a search engine and a web browser? <span class="marks-badge">4 Marks</span></div>
+                <textarea class="textarea-input" name="q41" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">42. Why is it important to use privacy settings online? <span class="marks-badge">4 Marks</span></div>
+                <textarea class="textarea-input" name="q42" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">43. Name three things you can do with a word processing application. <span class="marks-badge">4 Marks</span></div>
+                <textarea class="textarea-input" name="q43" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">44. Explain what a "variable" is in programming and give an example. <span class="marks-badge">4 Marks</span></div>
+                <textarea class="textarea-input" name="q44" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">45. How can you check if a fact you read on a website is true? <span class="marks-badge">4 Marks</span></div>
+                <textarea class="textarea-input" name="q45" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <!-- PART 5: Order the Block Code -->
+            <h2 class="section-title">Part 5: Order the Block Code <span>30 Marks</span></h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Select the correct sequence for the Scratch blocks to make the program work. (5 marks per question)</p>
+
+            <div class="question-card">
+                <div class="question-text">46. Order the steps to ask a user for their name and say it back. <span class="marks-badge">5 Marks</span></div>
+                <div class="order-container">
+                    <div class="order-step">
+                        <span class="order-label">1st Step:</span>
+                        <select class="order-select" name="q46_1">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">ask "What is your name?" and wait</option>
+                            <option value="B">when green flag clicked</option>
+                            <option value="C">say (join "Hello " answer)</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">2nd Step:</span>
+                        <select class="order-select" name="q46_2">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">ask "What is your name?" and wait</option>
+                            <option value="B">when green flag clicked</option>
+                            <option value="C">say (join "Hello " answer)</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">3rd Step:</span>
+                        <select class="order-select" name="q46_3">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">ask "What is your name?" and wait</option>
+                            <option value="B">when green flag clicked</option>
+                            <option value="C">say (join "Hello " answer)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">47. Order the steps to create a variable and set it to 10. <span class="marks-badge">5 Marks</span></div>
+                <div class="order-container">
+                    <div class="order-step">
+                        <span class="order-label">1st Step:</span>
+                        <select class="order-select" name="q47_1">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Click "Make a Variable"</option>
+                            <option value="B">Go to Variables menu</option>
+                            <option value="C">Drag "set my variable to 10"</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">2nd Step:</span>
+                        <select class="order-select" name="q47_2">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Click "Make a Variable"</option>
+                            <option value="B">Go to Variables menu</option>
+                            <option value="C">Drag "set my variable to 10"</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">3rd Step:</span>
+                        <select class="order-select" name="q47_3">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Click "Make a Variable"</option>
+                            <option value="B">Go to Variables menu</option>
+                            <option value="C">Drag "set my variable to 10"</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">48. Order the steps for a simple math quiz (add two numbers). <span class="marks-badge">5 Marks</span></div>
+                <div class="order-container">
+                    <div class="order-step">
+                        <span class="order-label">1st Step:</span>
+                        <select class="order-select" name="q48_1">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Set "total" to number1 + number2</option>
+                            <option value="B">Ask "Type first number" and set number1 to answer</option>
+                            <option value="C">Ask "Type second number" and set number2 to answer</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">2nd Step:</span>
+                        <select class="order-select" name="q48_2">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Set "total" to number1 + number2</option>
+                            <option value="B">Ask "Type first number" and set number1 to answer</option>
+                            <option value="C">Ask "Type second number" and set number2 to answer</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">3rd Step:</span>
+                        <select class="order-select" name="q48_3">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Set "total" to number1 + number2</option>
+                            <option value="B">Ask "Type first number" and set number1 to answer</option>
+                            <option value="C">Ask "Type second number" and set number2 to answer</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">49. Order the steps to create a bulleted list in a document. <span class="marks-badge">5 Marks</span></div>
+                <div class="order-container">
+                    <div class="order-step">
+                        <span class="order-label">1st Step:</span>
+                        <select class="order-select" name="q49_1">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Click the bullet list button</option>
+                            <option value="B">Open the document and type the first item</option>
+                            <option value="C">Press Enter to make the next bullet</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">2nd Step:</span>
+                        <select class="order-select" name="q49_2">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Click the bullet list button</option>
+                            <option value="B">Open the document and type the first item</option>
+                            <option value="C">Press Enter to make the next bullet</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">3rd Step:</span>
+                        <select class="order-select" name="q49_3">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Click the bullet list button</option>
+                            <option value="B">Open the document and type the first item</option>
+                            <option value="C">Press Enter to make the next bullet</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">50. Order the steps to add a header to a document. <span class="marks-badge">5 Marks</span></div>
+                <div class="order-container">
+                    <div class="order-step">
+                        <span class="order-label">1st Step:</span>
+                        <select class="order-select" name="q50_1">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Double-click the top margin area</option>
+                            <option value="B">Open the Insert menu</option>
+                            <option value="C">Type your text in the header box</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">2nd Step:</span>
+                        <select class="order-select" name="q50_2">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Double-click the top margin area</option>
+                            <option value="B">Open the Insert menu</option>
+                            <option value="C">Type your text in the header box</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">3rd Step:</span>
+                        <select class="order-select" name="q50_3">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Double-click the top margin area</option>
+                            <option value="B">Open the Insert menu</option>
+                            <option value="C">Type your text in the header box</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">51. Order the steps to check if a website is reliable. <span class="marks-badge">5 Marks</span></div>
+                <div class="order-container">
+                    <div class="order-step">
+                        <span class="order-label">1st Step:</span>
+                        <select class="order-select" name="q51_1">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Look at who wrote it (author)</option>
+                            <option value="B">Check if it is a fact or opinion</option>
+                            <option value="C">Compare with another website</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">2nd Step:</span>
+                        <select class="order-select" name="q51_2">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Look at who wrote it (author)</option>
+                            <option value="B">Check if it is a fact or opinion</option>
+                            <option value="C">Compare with another website</option>
+                        </select>
+                    </div>
+                    <div class="order-step">
+                        <span class="order-label">3rd Step:</span>
+                        <select class="order-select" name="q51_3">
+                            <option value="">-- Select Block --</option>
+                            <option value="A">Look at who wrote it (author)</option>
+                            <option value="B">Check if it is a fact or opinion</option>
+                            <option value="C">Compare with another website</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="submit-btn">Submit Final Exam</button>
+        </form>
+
+        <!-- Results Container -->
+        <div id="result-container">
+            <div class="score-card">
+                <h2 id="result-greeting">Examination Completed</h2>
+                <div class="score-display" id="score-display">0<span>/100</span></div>
+                <p>Your detailed report is below.</p>
+            </div>
+            
+            <div class="result-breakdown" id="detailed-results">
+                <!-- JS will inject results here -->
+            </div>
+            
+            <div style="text-align: center;">
+                <button onclick="location.reload()" class="retake-btn">Logout & Retake</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Anti-Copy and Anti-Cheat Script ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 123 || 
+                (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || 
+                (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || 
+                (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                e.preventDefault();
+                alert("Developer tools and copying are disabled during the exam.");
+            }
+        });
+
+        // --- Login Logic ---
+        let currentStudentName = "";
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nameInput = document.getElementById('studentName').value.trim();
+            const passInput = document.getElementById('studentPassword').value;
+            const errorMsg = document.getElementById('login-error');
+
+            if (passInput !== 'HJS2026') {
+                errorMsg.style.display = 'block';
+                errorMsg.innerText = 'Incorrect password. Please try again.';
+                return;
+            }
+
+            if (nameInput === '') {
+                errorMsg.style.display = 'block';
+                errorMsg.innerText = 'Please enter your name.';
+                return;
+            }
+
+            // Success
+            currentStudentName = nameInput;
+            errorMsg.style.display = 'none';
+            
+            // Update Header
+            document.getElementById('display-name').innerText = currentStudentName;
+            document.getElementById('user-greeting').style.display = 'block';
+
+            // Switch Screens
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('exam-container').style.display = 'block';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // --- Exam Logic & Answer Key ---
+        const answerKey = {
+            q1: 'A', q2: 'B', q3: 'B', q4: 'B', q5: 'A',
+            q6: 'C', q7: 'B', q8: 'B', q9: 'B', q10: 'A',
+            q11: 'A', q12: 'B', q13: 'B', q14: 'B', q15: 'B',
+            q16: 'A', q17: 'B', q18: 'B', q19: 'A', q20: 'B',
+            q21: 'False', q22: 'False', q23: 'True', q24: 'True', q25: 'False',
+            q26: 'False', q27: 'False', q28: 'True', q29: 'True', q30: 'False',
+            q31: 'cursor', q32: 'serif', q33: 'bulleted', q34: 'header', q35: 'search', 
+            q36: 'bookmark', q37: 'privacy', q38: 'variable', q39: 'ask', q40: 'total',
+            q41: ['search engine finds', 'browser displays', 'search engine gives links', 'browser shows website', 'find information', 'view websites'],
+            q42: ['protect', 'safe', 'strangers', 'control who sees', 'personal information'],
+            q43: ['create document', 'edit text', 'format', 'save', 'print', 'add images', 'tables'],
+            q44: ['place in memory', 'holds a value', 'stores data', 'like a box', 'name and value'],
+            q45: ['check author', 'fact or opinion', 'compare with other sites', 'check date', 'trusted website'],
+            q46_1: 'B', q46_2: 'A', q46_3: 'C',
+            q47_1: 'B', q47_2: 'A', q47_3: 'C',
+            q48_1: 'B', q48_2: 'C', q48_3: 'A',
+            q49_1: 'B', q49_2: 'A', q49_3: 'C',
+            q50_1: 'B', q50_2: 'A', q50_3: 'C',
+            q51_1: 'A', q51_2: 'B', q51_3: 'C'
+        };
+
+        const marks = { mcq: 1, tf: 1, fill: 2, short: 4, order: 5 };
+
+        document.getElementById('examForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let totalScore = 0;
+            let resultHTML = '';
+
+            // 1. Evaluate MCQ (1-20)
+            for (let i = 1; i <= 20; i++) {
+                let qName = 'q' + i;
+                let selected = document.querySelector(`input[name="${qName}"]:checked`);
+                let userAnswer = selected ? selected.value : 'Not answered';
+                let correctAnswer = answerKey[qName];
+                
+                if (userAnswer === correctAnswer) {
+                    totalScore += marks.mcq;
+                    resultHTML += `<div class="result-item correct"><strong>Q${i} (Multiple Choice):</strong> Correct! <div class="answer-detail"><span class="correct-answer-text">Your answer: ${userAnswer}</span></div></div>`;
+                } else {
+                    resultHTML += `<div class="result-item incorrect"><strong>Q${i} (Multiple Choice):</strong> Incorrect. <div class="answer-detail"><span class="your-answer-text">Your answer: ${userAnswer}</span><span class="correct-answer-text">Correct answer: ${correctAnswer}</span></div></div>`;
+                }
+            }
+
+            // 2. Evaluate True/False (21-30)
+            for (let i = 21; i <= 30; i++) {
+                let qName = 'q' + i;
+                let selected = document.querySelector(`input[name="${qName}"]:checked`);
+                let userAnswer = selected ? selected.value : 'Not answered';
+                let correctAnswer = answerKey[qName];
+                
+                if (userAnswer === correctAnswer) {
+                    totalScore += marks.tf;
+                    resultHTML += `<div class="result-item correct"><strong>Q${i} (True/False):</strong> Correct! <div class="answer-detail"><span class="correct-answer-text">Your answer: ${userAnswer}</span></div></div>`;
+                } else {
+                    resultHTML += `<div class="result-item incorrect"><strong>Q${i} (True/False):</strong> Incorrect. <div class="answer-detail"><span class="your-answer-text">Your answer: ${userAnswer}</span><span class="correct-answer-text">Correct answer: ${correctAnswer}</span></div></div>`;
+                }
+            }
+
+            // 3. Evaluate Fill in the Blanks (31-40)
+            for (let i = 31; i <= 40; i++) {
+                let qName = 'q' + i;
+                let userAnswer = document.querySelector(`input[name="${qName}"]`).value.trim().toLowerCase();
+                let correctAnswer = answerKey[qName].toLowerCase();
+                
+                if (userAnswer === correctAnswer || (userAnswer !== '' && correctAnswer.includes(userAnswer))) {
+                    totalScore += marks.fill;
+                    resultHTML += `<div class="result-item correct"><strong>Q${i} (Fill in Blank):</strong> Correct! <div class="answer-detail"><span class="correct-answer-text">Your answer: ${userAnswer}</span></div></div>`;
+                } else {
+                    resultHTML += `<div class="result-item incorrect"><strong>Q${i} (Fill in Blank):</strong> Incorrect. <div class="answer-detail"><span class="your-answer-text">Your answer: ${userAnswer || 'Blank'}</span><span class="correct-answer-text">Correct answer: ${answerKey[qName]}</span></div></div>`;
+                }
+            }
+
+            // 4. Evaluate Short Questions (41-45) using keywords
+            for (let i = 41; i <= 45; i++) {
+                let qName = 'q' + i;
+                let userAnswer = document.querySelector(`textarea[name="${qName}"]`).value.trim().toLowerCase();
+                let keywords = answerKey[qName];
+                let isCorrect = false;
+                let matchedKeyword = "";
+
+                for (let kw of keywords) {
+                    if (userAnswer.includes(kw)) {
+                        isCorrect = true;
+                        matchedKeyword = kw;
+                        break;
+                    }
+                }
+
+                if (isCorrect) {
+                    totalScore += marks.short;
+                    resultHTML += `<div class="result-item correct"><strong>Q${i} (Short Answer):</strong> Correct! (Contains key concept: "${matchedKeyword}")</div>`;
+                } else {
+                    resultHTML += `<div class="result-item incorrect"><strong>Q${i} (Short Answer):</strong> Incorrect / Incomplete. <div class="answer-detail"><span class="your-answer-text">Your answer: "${userAnswer || 'Blank'}"</span><span class="correct-answer-text">Expected concepts: ${keywords.join(' OR ')}</span></div></div>`;
+                }
+            }
+
+            // 5. Evaluate Ordering (46-51)
+            let orderQuestions = [46, 47, 48, 49, 50, 51];
+            orderQuestions.forEach(qNum => {
+                let isFullyCorrect = true;
+                let userAnswers = [];
+                let correctAnswers = [];
+                
+                for(let step = 1; step <= 3; step++) {
+                    let qName = `q${qNum}_${step}`;
+                    let userVal = document.querySelector(`select[name="${qName}"]`).value;
+                    let correctVal = answerKey[qName];
+                    userAnswers.push(userVal || 'Blank');
+                    correctAnswers.push(correctVal);
+                    if(userVal !== correctVal) {
+                        isFullyCorrect = false;
+                    }
+                }
+
+                if (isFullyCorrect) {
+                    totalScore += marks.order;
+                    resultHTML += `<div class="result-item correct"><strong>Q${qNum} (Block Code Ordering):</strong> Correct! <div class="answer-detail"><span class="correct-answer-text">Your sequence is correct.</span></div></div>`;
+                } else {
+                    resultHTML += `<div class="result-item incorrect"><strong>Q${qNum} (Block Code Ordering):</strong> Incorrect. <div class="answer-detail"><span class="your-answer-text">Your Order: ${userAnswers.join(' -> ')}</span><span class="correct-answer-text">Correct Order: ${correctAnswers.join(' -> ')}</span></div></div>`;
+                }
+            });
+
+            // Display Results
+            document.getElementById('result-greeting').innerText = `${currentStudentName}'s Examination Report`;
+            document.getElementById('score-display').innerHTML = `${totalScore}<span>/100</span>`;
+            document.getElementById('detailed-results').innerHTML = resultHTML;
+            
+            // Toggle UI
+            document.getElementById('exam-container').querySelector('.exam-info-card').style.display = 'none';
+            document.getElementById('examForm').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+            
+            // Scroll to top smooth
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
